@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'dart:convert';
 
+import 'package:spacex/model/data/launch.dart';
+
 const spacexJson = '{"fairings":{"reused":null,"recovery_attempt":null,"recovered":null,"ships":[]},"links":{"patch":'
     '{"small":"https://imgur.com/BrW201S.png","large":"https://imgur.com/573IfGk.png"},"reddit":'
     '{"campaign":"https://www.reddit.com/r/spacex/comments/jhu37i/starlink_general_discussion_and_deployment_thread/","launch":null,'
@@ -17,9 +19,9 @@ void main() {
   group('Data class tests', () {
     test('TEST Create a data object from JSON', () {
       var jsonMap = json.decode(spacexJson);
-      //var testLaunch = LaunchImp.fromJson(jsonMap);
-      //expect(testlaunch.missionName, 'Starlink-19 (v1.0)' );
-      //expect(testLaunch.missionDate, DateTime(2021, 2, 14, 04, 20 ));
+      var testLaunch = LaunchImp.fromJson(jsonMap);
+      expect(testLaunch.missionName, 'Starlink-19 (v1.0)' );
+      expect(testLaunch.missionDateTime, DateTime.utc(2021, 2, 15, 04, 20 ));
     });
   });
 }
