@@ -22,11 +22,11 @@ class DisplayLaunchesState extends LaunchesState {
 }
 
 class DisplayCountdownState extends LaunchesState {
-  final String missionName;
+  final Mission mission;
   final CountdownTime time;
-  DisplayCountdownState(this.missionName, this.time);
+  DisplayCountdownState(this.mission, this.time);
   @override
-  List<Object> get props => [missionName, time];
+  List<Object> get props => [mission, time];
 }
 
 

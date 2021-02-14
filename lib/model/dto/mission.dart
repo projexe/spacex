@@ -7,12 +7,14 @@ class Mission {
   String missionName;
   int flightNumber;
   int unixDate;
+  bool isFavourite;
 
   Mission(
       {this.missionName,
       this.missionDateTime,
       this.flightNumber,
-      this.unixDate});
+      this.unixDate,
+      this.isFavourite});
 
   factory Mission.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
@@ -32,6 +34,9 @@ class Mission {
 
   String get formattedDate =>
       formatDate(missionDateTime, [dd, '/', mm, '/', yy]);
+
+  @override
+  String toString() => '$missionName launches on $formattedDate';
 
   /// Data utility function creates a List<Launch> from a JSON list of
   /// launches..

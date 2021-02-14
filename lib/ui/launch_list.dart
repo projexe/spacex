@@ -59,7 +59,7 @@ class _LaunchListState extends State<LaunchList> {
             RightToLeftTransition(
                 page: BlocProvider.value(
                     value: bloc,
-                    child: CountdownPage(state.missionName, state.time)),
+                    child: CountdownPage(state.mission, state.time)),
                 settings: RouteSettings(name: 'Countdown')),
           );
           bloc.add(ShowLaunchList());
@@ -101,19 +101,19 @@ class _LaunchListState extends State<LaunchList> {
     );
   }
 
-  Widget _launchItem(Mission mission) => Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: InkWell(
-          onTap: () => bloc.add(ShowLaunchCountdown(mission)),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text('${mission.missionName}',
-                style: TextStyle(color: Colors.white, fontSize: 18)),
-            Text('${mission.formattedDate}',
-                style: TextStyle(color: Colors.white, fontSize: 18)),
-          ]),
+  Widget _launchItem(Mission mission) => InkWell(
+    onTap: () => bloc.add(ShowLaunchCountdown(mission)),
+    child:
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      Text('${mission.missionName}',
+            style: TextStyle(color: Colors.white, fontSize: 18)),
+      Text('${mission.formattedDate}',
+            style: TextStyle(color: Colors.white, fontSize: 18)),
+    ]),
         ),
-      );
+  );
 
   Widget _headingItem() => Padding(
         padding: const EdgeInsets.all(16.0),

@@ -4,11 +4,19 @@ abstract class LaunchesEvent extends Equatable {
   const LaunchesEvent();
 }
 
-class AddToFavourites extends LaunchesEvent {
-  final String launchNumber;
-  AddToFavourites(this.launchNumber);
+class UpdateFavourites extends LaunchesEvent {
+  final Mission mission;
+  final bool isAdd;
+  UpdateFavourites(this.mission, {this.isAdd});
   @override
-  List<Object> get props => [launchNumber];
+  List<Object> get props => [mission, isAdd];
+}
+
+class ShareMission extends LaunchesEvent {
+  final Mission mission;
+  ShareMission(this.mission);
+  @override
+  List<Object> get props => [mission];
 }
 
 class ShowLaunchCountdown extends LaunchesEvent {

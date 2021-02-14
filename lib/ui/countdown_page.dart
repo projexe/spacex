@@ -4,25 +4,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex/bloc/launches_bloc.dart';
 import 'package:spacex/model/dto/countdown_time.dart';
+import 'package:spacex/model/dto/mission.dart';
 
 class CountdownPage extends StatefulWidget {
   final CountdownTime time;
-  final String name;
-  CountdownPage(this.name, this.time);
+  final Mission mission;
+  CountdownPage(this.mission, this.time);
   @override
   _CountdownPageState createState() => _CountdownPageState();
 }
 
 class _CountdownPageState extends State<CountdownPage> {
   Timer timer;
+  LaunchesBloc bloc;
+  bool isFavourite;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LaunchesBloc, LaunchesState>(
       cubit: BlocProvider.of<LaunchesBloc>(context),
       builder: (context, LaunchesState state) => Scaffold(
-        appBar: AppBar(centerTitle: true,
+        appBar: AppBar(
+          centerTitle: true,
           toolbarHeight: 100,
-          title: Text('${widget.name}'),
+          title: Text('${widget.mission.missionName}'),
+          actions: [
+            IconButton(
+                icon: isFavourite
+                    ? Icon(Icons.favorite)
+                    : Icon(Icons.favorite_border),
+                onPressed: () {
+                  bloc.add(UpdateFavourites(widget.mission,
+                      isAdd: isFavourite ? false : true));
+                  setState(() {
+                    isFavourite = !isFavourite;
+                  });
+                }
+                 ),
+            IconButton(
+                icon: Icon(Icons.share),
+                onPressed: () => bloc.add(ShareMission(widget.mission)))
+          ],
         ),
         body: Center(
           child: Column(
@@ -44,8 +65,15 @@ class _CountdownPageState extends State<CountdownPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    bloc = BlocProvider.of<LaunchesBloc>(context);
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    isFavourite = widget.mission.isFavourite ?? false;
     startCountdown();
   }
 
