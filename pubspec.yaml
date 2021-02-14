@@ -24,6 +24,9 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.12.0+4  # Provides cross-platform, Future-based API for making HTTP requests.
+  flutter_bloc: ^6.0.1 # A Flutter package that helps implement the BLoC pattern.
+  equatable: ^1.2.5  # An abstract class that helps to implement equality without needing to explicitly override == and hashCode. used to compare equality in Objects
+
 
 
 
