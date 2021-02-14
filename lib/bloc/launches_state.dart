@@ -15,14 +15,14 @@ class WaitingForDataState extends LaunchesState {
 }
 
 class DisplayLaunchesState extends LaunchesState {
-  List<Mission> missionList;
+  final List<Mission> missionList;
   DisplayLaunchesState({this.missionList});
   @override
   List<Object> get props => [missionList];
 }
 
 class DisplayCountdownState extends LaunchesState {
-  CountdownTime time;
+  final CountdownTime time;
   DisplayCountdownState({this.time});
   @override
   List<Object> get props => [time];

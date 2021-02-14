@@ -22,17 +22,20 @@ class _CountdownPageState extends State<CountdownPage> {
         appBar: AppBar(
           title: Text('Countdown'),
         ),
-        body: Column(
-          children: [
-            Text('Days'),
-            Text('${widget.time.days}'),
-            Text('Hours'),
-            Text('${widget.time.hours}'),
-            Text('Minutes'),
-            Text('${widget.time.mins}'),
-            Text('Seconds'),
-            Text('${widget.time.seconds}'),
-          ],
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CountdownDataWidget(widget.time.days),
+              CountdownLabelWidget('DAYS'),
+              CountdownDataWidget(widget.time.hours),
+              CountdownLabelWidget('HOURS'),
+              CountdownDataWidget(widget.time.mins),
+              CountdownLabelWidget('MINUTES'),
+              CountdownDataWidget(widget.time.seconds),
+              CountdownLabelWidget('SECONDS'),
+            ],
+          ),
         ),
       ),
     );
@@ -62,4 +65,37 @@ class _CountdownPageState extends State<CountdownPage> {
       });
     });
   }
+}
+
+class CountdownLabelWidget extends StatelessWidget {
+  final String label;
+  const CountdownLabelWidget(this.label);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.white,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(6.0))),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Text('$label',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            )),
+      ),
+    );
+  }
+}
+
+class CountdownDataWidget extends StatelessWidget {
+  final int value;
+  CountdownDataWidget(this.value);
+  @override
+  Widget build(BuildContext context) =>
+      Text('$value', style: TextStyle(color: Colors.white, fontSize: 50));
 }
