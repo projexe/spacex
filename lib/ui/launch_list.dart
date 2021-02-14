@@ -4,6 +4,9 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:spacex/bloc/launches_bloc.dart';
 import 'package:spacex/model/dataservice/data_service.dart';
+import 'package:spacex/ui/utilities.dart';
+
+import 'countdown_page.dart';
 
 class RouteLaunchList extends StatelessWidget {
   @override
@@ -49,9 +52,15 @@ class _LaunchListState extends State<LaunchList> {
     return BlocListener<LaunchesBloc, LaunchesState>(
       cubit: bloc,
       listener: (context, LaunchesState state) async {
-        if (state is WaitingForDataState) {}
         if (state is DisplayCountdownState) {
-          //Navigate
+          await Navigator.push(
+            context,
+            RightToLeftTransition(
+                page: BlocProvider.value(
+                    value: bloc, child: CountdownPage(time: state.time)),
+                settings: RouteSettings(name: 'Countdown')),
+          );
+          bloc.add(ShowLaunchList());
         }
       },
       child: BlocBuilder<LaunchesBloc, LaunchesState>(
@@ -73,8 +82,8 @@ class _LaunchListState extends State<LaunchList> {
                       return Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: InkWell(
-                          onTap: () => bloc.add(ShowLaunchCountdown(
-                              state.missionList[index])),
+                          onTap: () => bloc.add(
+                              ShowLaunchCountdown(state.missionList[index])),
                           child: Row(children: [
                             Text('${state.missionList[index].missionName}'),
                             Text('${state.missionList[index].missionDateTime}'),

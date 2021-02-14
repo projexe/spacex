@@ -38,7 +38,8 @@ void main() {
           DateTime(2021, 01, 01, 0, 1, 0).millisecondsSinceEpoch ~/ 1000;
       var oneSecond =
           DateTime(2021, 01, 01, 0, 0, 1).millisecondsSinceEpoch ~/ 1000;
-      var testAll = DateTime(2021, 2, 3, 15, 56, 23).millisecondsSinceEpoch ~/ 1000;
+      var testAll =
+          DateTime(2021, 2, 3, 15, 56, 23).millisecondsSinceEpoch ~/ 1000;
 
       var countdownTime = CountdownTime.fromUnixDate(oneDay, now: _now);
       expect(countdownTime.days, 1);
@@ -69,7 +70,6 @@ void main() {
       expect(countdownTime.hours, 15);
       expect(countdownTime.mins, 56);
       expect(countdownTime.seconds, 23);
-
     });
   });
 }
