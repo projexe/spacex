@@ -10,7 +10,7 @@ class CountdownTime {
   CountdownTime(this.days, this.hours, this.mins, this.seconds);
 
   CountdownTime.fromUnixDate(int unixDate, {int now}) {
-    var _now = now ?? DateTime.now().millisecondsSinceEpoch % 1000;
+    var _now = now ?? DateTime.now().millisecondsSinceEpoch ~/ 1000;
     var _secondsTilLaunch = unixDate - _now;
     // calculate days as seconds til launch mod seconds in day
     days = _secondsTilLaunch ~/ secondsInDay;

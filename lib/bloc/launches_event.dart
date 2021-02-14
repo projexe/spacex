@@ -12,10 +12,10 @@ class AddToFavourites extends LaunchesEvent {
 }
 
 class ShowLaunchCountdown extends LaunchesEvent {
-  final int flightNumber;
-  ShowLaunchCountdown(this.flightNumber);
+  final Mission mission;
+  ShowLaunchCountdown(this.mission);
   @override
-  List<Object> get props => [flightNumber];
+  List<Object> get props => [mission];
 }
 
 class ShowLaunchList extends LaunchesEvent {

@@ -22,8 +22,10 @@ class DisplayLaunchesState extends LaunchesState {
 }
 
 class DisplayCountdownState extends LaunchesState {
+  CountdownTime time;
+  DisplayCountdownState({this.time});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [time];
 }
 
 

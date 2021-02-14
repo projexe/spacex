@@ -74,7 +74,7 @@ class _LaunchListState extends State<LaunchList> {
                         padding: const EdgeInsets.all(12.0),
                         child: InkWell(
                           onTap: () => bloc.add(ShowLaunchCountdown(
-                              state.missionList[index].flightNumber)),
+                              state.missionList[index])),
                           child: Row(children: [
                             Text('${state.missionList[index].missionName}'),
                             Text('${state.missionList[index].missionDateTime}'),

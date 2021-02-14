@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:spacex/model/dataservice/data_service.dart';
+import 'package:spacex/model/dto/countdown_time.dart';
 import 'package:spacex/model/dto/mission.dart';
 
 part 'launches_event.dart';
@@ -28,13 +29,13 @@ class LaunchesBloc extends Bloc<LaunchesEvent, LaunchesState> {
       var list = Mission.makeLaunchList(launchesJson);
 
       // display the list
-      yield DisplayLaunchesState(missionList : list);
+      yield DisplayLaunchesState(missionList: list);
     }
     if (event is ShowLaunchCountdown) {
       // Configure the timer for the launch
-
+      var countdownTime = CountdownTime.fromUnixDate(event.mission.unixDate);
       // display the timer
-      yield DisplayCountdownState();
+      yield DisplayCountdownState(time : countdownTime);
     }
   }
 }
