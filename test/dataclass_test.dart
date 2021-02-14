@@ -1,9 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:spacex/model/dto/countdown_time.dart';
 import 'dart:convert';
 
 import 'package:spacex/model/dto/mission.dart';
 
-const spacexJson = '{"fairings":{"reused":null,"recovery_attempt":null,"recovered":null,"ships":[]},"links":{"patch":'
+const spacexJson =
+    '{"fairings":{"reused":null,"recovery_attempt":null,"recovered":null,"ships":[]},"links":{"patch":'
     '{"small":"https://imgur.com/BrW201S.png","large":"https://imgur.com/573IfGk.png"},"reddit":'
     '{"campaign":"https://www.reddit.com/r/spacex/comments/jhu37i/starlink_general_discussion_and_deployment_thread/","launch":null,'
     '"media":null,"recovery":"https://www.reddit.com/r/spacex/comments/k2ts1q/rspacex_fleet_updates_discussion_thread/"},"flickr":'
@@ -20,10 +22,54 @@ void main() {
     test('TEST Create a data object from JSON', () {
       var jsonMap = json.decode(spacexJson);
       var testLaunch = Mission.fromJson(jsonMap);
-      expect(testLaunch.missionName, 'Starlink-19 (v1.0)' );
-      expect(testLaunch.missionDateTime, DateTime.utc(2021, 2, 15, 04, 20 ));
+      expect(testLaunch.missionName, 'Starlink-19 (v1.0)');
+      expect(testLaunch.missionDateTime, DateTime.utc(2021, 2, 15, 04, 20));
       expect(testLaunch.flightNumber, 117);
-      expect(testLaunch.unixDate , 1613362800 );
+      expect(testLaunch.unixDate, 1613362800);
+    });
+
+    test('TEST Countdown time', () {
+      var _now = DateTime(2021, 01, 01, 0, 0, 0).millisecondsSinceEpoch ~/ 1000;
+      var oneDay =
+          DateTime(2021, 01, 02, 0, 0, 0).millisecondsSinceEpoch ~/ 1000;
+      var oneHour =
+          DateTime(2021, 01, 01, 1, 0, 0).millisecondsSinceEpoch ~/ 1000;
+      var oneMin =
+          DateTime(2021, 01, 01, 0, 1, 0).millisecondsSinceEpoch ~/ 1000;
+      var oneSecond =
+          DateTime(2021, 01, 01, 0, 0, 1).millisecondsSinceEpoch ~/ 1000;
+      var testAll = DateTime(2021, 2, 3, 15, 56, 23).millisecondsSinceEpoch ~/ 1000;
+
+      var countdownTime = CountdownTime.fromUnixDate(oneDay, now: _now);
+      expect(countdownTime.days, 1);
+      expect(countdownTime.hours, 0);
+      expect(countdownTime.mins, 0);
+      expect(countdownTime.seconds, 0);
+
+      countdownTime = CountdownTime.fromUnixDate(oneHour, now: _now);
+      expect(countdownTime.days, 0);
+      expect(countdownTime.hours, 1);
+      expect(countdownTime.mins, 0);
+      expect(countdownTime.seconds, 0);
+
+      countdownTime = CountdownTime.fromUnixDate(oneMin, now: _now);
+      expect(countdownTime.days, 0);
+      expect(countdownTime.hours, 0);
+      expect(countdownTime.mins, 1);
+      expect(countdownTime.seconds, 0);
+
+      countdownTime = CountdownTime.fromUnixDate(oneSecond, now: _now);
+      expect(countdownTime.days, 0);
+      expect(countdownTime.hours, 0);
+      expect(countdownTime.mins, 0);
+      expect(countdownTime.seconds, 1);
+
+      countdownTime = CountdownTime.fromUnixDate(testAll, now: _now);
+      expect(countdownTime.days, 33);
+      expect(countdownTime.hours, 15);
+      expect(countdownTime.mins, 56);
+      expect(countdownTime.seconds, 23);
+
     });
   });
 }
