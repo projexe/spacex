@@ -24,6 +24,13 @@ class _CountdownPageState extends State<CountdownPage> {
       cubit: BlocProvider.of<LaunchesBloc>(context),
       builder: (context, LaunchesState state) => Scaffold(
         appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: <Color>[Colors.teal[300], Colors.teal[600]])),
+          ),
           centerTitle: true,
           toolbarHeight: 100,
           title: Text('${widget.mission.missionName}'),
@@ -38,8 +45,7 @@ class _CountdownPageState extends State<CountdownPage> {
                   setState(() {
                     isFavourite = !isFavourite;
                   });
-                }
-                 ),
+                }),
             IconButton(
                 icon: Icon(Icons.share),
                 onPressed: () => bloc.add(ShareMission(widget.mission)))

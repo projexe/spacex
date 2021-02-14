@@ -70,6 +70,14 @@ class _LaunchListState extends State<LaunchList> {
           builder: (context, LaunchesState state) {
             return Scaffold(
               appBar: AppBar(
+                flexibleSpace: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: <Color>[Colors.purple[400], Colors.purple[800]])),
+                ),
+
                 centerTitle: true,
                 toolbarHeight: 100,
                 title: Text(
