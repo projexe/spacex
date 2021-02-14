@@ -7,7 +7,8 @@ import 'package:spacex/model/dto/countdown_time.dart';
 
 class CountdownPage extends StatefulWidget {
   final CountdownTime time;
-  CountdownPage({this.time});
+  final String name;
+  CountdownPage(this.name, this.time);
   @override
   _CountdownPageState createState() => _CountdownPageState();
 }
@@ -19,8 +20,9 @@ class _CountdownPageState extends State<CountdownPage> {
     return BlocBuilder<LaunchesBloc, LaunchesState>(
       cubit: BlocProvider.of<LaunchesBloc>(context),
       builder: (context, LaunchesState state) => Scaffold(
-        appBar: AppBar(
-          title: Text('Countdown'),
+        appBar: AppBar(centerTitle: true,
+          toolbarHeight: 100,
+          title: Text('${widget.name}'),
         ),
         body: Center(
           child: Column(

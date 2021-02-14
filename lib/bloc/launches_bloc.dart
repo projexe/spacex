@@ -29,13 +29,13 @@ class LaunchesBloc extends Bloc<LaunchesEvent, LaunchesState> {
       var list = Mission.makeLaunchList(launchesJson);
 
       // display the list
-      yield DisplayLaunchesState(missionList: list);
+      yield DisplayLaunchesState(list);
     }
     if (event is ShowLaunchCountdown) {
       // Configure the timer for the launch
       var countdownTime = CountdownTime.fromUnixDate(event.mission.unixDate);
       // display the timer
-      yield DisplayCountdownState(time : countdownTime);
+      yield DisplayCountdownState(event.mission.missionName, countdownTime);
     }
   }
 }
