@@ -22,6 +22,8 @@ void main() {
       var testLaunch = Mission.fromJson(jsonMap);
       expect(testLaunch.missionName, 'Starlink-19 (v1.0)' );
       expect(testLaunch.missionDateTime, DateTime.utc(2021, 2, 15, 04, 20 ));
+      expect(testLaunch.flightNumber, 117);
+      expect(testLaunch.unixDate , 1613362800 );
     });
   });
 }

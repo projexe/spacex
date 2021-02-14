@@ -4,8 +4,11 @@ import 'dart:convert';
 class Mission {
   DateTime missionDateTime;
   String missionName;
+  int flightNumber;
+  int unixDate;
 
-  Mission({this.missionName, this.missionDateTime});
+
+  Mission({this.missionName, this.missionDateTime, this.flightNumber, this.unixDate});
 
   factory Mission.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
@@ -13,6 +16,8 @@ class Mission {
       var _launch = Mission(
         missionDateTime: DateTime.tryParse(json['date_utc'] ?? ''),
         missionName: (json['name']?.toString()?.trim()),
+        flightNumber: (json['flight_number']),
+        unixDate: (json['date_unix']),
       );
       return _launch;
     } catch (e) {
