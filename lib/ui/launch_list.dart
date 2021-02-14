@@ -4,6 +4,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:spacex/bloc/launches_bloc.dart';
 import 'package:spacex/model/dataservice/data_service.dart';
+import 'package:spacex/model/dto/mission.dart';
 import 'package:spacex/ui/utilities.dart';
 
 import 'countdown_page.dart';
@@ -57,7 +58,8 @@ class _LaunchListState extends State<LaunchList> {
             context,
             RightToLeftTransition(
                 page: BlocProvider.value(
-                    value: bloc, child: CountdownPage(time: state.time)),
+                    value: bloc,
+                    child: CountdownPage(state.missionName, state.time)),
                 settings: RouteSettings(name: 'Countdown')),
           );
           bloc.add(ShowLaunchList());
@@ -68,6 +70,8 @@ class _LaunchListState extends State<LaunchList> {
           builder: (context, LaunchesState state) {
             return Scaffold(
               appBar: AppBar(
+                centerTitle: true,
+                toolbarHeight: 100,
                 title: Text(
                   'Upcoming Launches',
                 ),
@@ -76,20 +80,19 @@ class _LaunchListState extends State<LaunchList> {
                 if (state is WaitingForDataState)
                   Center(child: PlatformCircularProgressIndicator()),
                 if (state is DisplayLaunchesState)
-                  ListView.builder(
-                    itemCount: state.missionList.length,
+                  ListView.separated(
+                    separatorBuilder: (context, index) => Divider(
+                      color: Colors.white,
+                      height: 12,
+                      thickness: 2,
+                    ),
+                    itemCount: state.missionList.length + 1,
                     itemBuilder: (BuildContext content, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: InkWell(
-                          onTap: () => bloc.add(
-                              ShowLaunchCountdown(state.missionList[index])),
-                          child: Row(children: [
-                            Text('${state.missionList[index].missionName}'),
-                            Text('${state.missionList[index].formattedDate}'),
-                          ]),
-                        ),
-                      );
+                      if (index == 0) {
+                        return _headingItem();
+                      } else {
+                        return _launchItem(state.missionList[index - 1]);
+                      }
                     },
                   )
               ]),
@@ -97,4 +100,28 @@ class _LaunchListState extends State<LaunchList> {
           }),
     );
   }
+
+  Widget _launchItem(Mission mission) => Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: InkWell(
+          onTap: () => bloc.add(ShowLaunchCountdown(mission)),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text('${mission.missionName}',
+                style: TextStyle(color: Colors.white, fontSize: 18)),
+            Text('${mission.formattedDate}',
+                style: TextStyle(color: Colors.white, fontSize: 18)),
+          ]),
+        ),
+      );
+
+  Widget _headingItem() => Padding(
+        padding: const EdgeInsets.all(16.0),
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Text('Mission', style: TextStyle(color: Colors.white, fontSize: 18)),
+          Text('Date (UTC)',
+              style: TextStyle(color: Colors.white, fontSize: 18)),
+        ]),
+      );
 }
