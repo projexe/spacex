@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:spacex/bloc/launches_bloc.dart';
 import 'package:spacex/model/dataservice/data_service.dart';
@@ -63,6 +64,8 @@ class _LaunchListState extends State<LaunchList> {
                 ),
               ),
               body: Stack(alignment: Alignment.bottomCenter, children: <Widget>[
+                if (state is WaitingForDataState)
+                  Center(child: PlatformCircularProgressIndicator()),
                 if (state is DisplayLaunchesState)
                   ListView.builder(
                       itemCount: state.missionList.length,
