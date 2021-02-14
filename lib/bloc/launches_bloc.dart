@@ -26,7 +26,13 @@ class LaunchesBloc extends Bloc<LaunchesEvent, LaunchesState> {
     if (event is ShowLaunchList) {
       yield WaitingForDataState();
       var launchesJson = await missionApi.getUpcomingLaunches();
+
       var list = Mission.makeLaunchList(launchesJson);
+
+      // V4 of the API is broken. Querying doesn't work (as it does on V3) and
+      // the 'upcoming' endpoint returns some past missions. Therefore I have
+      // added a function to check and clean the list
+      list = _cleanList(list);
 
       // display the list
       yield DisplayLaunchesState(list);
@@ -38,4 +44,10 @@ class LaunchesBloc extends Bloc<LaunchesEvent, LaunchesState> {
       yield DisplayCountdownState(event.mission.missionName, countdownTime);
     }
   }
+}
+
+List<Mission> _cleanList(List<Mission> list) {
+  list.removeWhere((element) =>
+      element.unixDate < DateTime.now().millisecondsSinceEpoch ~/ 1000);
+  return list;
 }
