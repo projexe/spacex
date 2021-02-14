@@ -27,6 +27,8 @@ dependencies:
   flutter_bloc: ^6.0.1 # A Flutter package that helps implement the BLoC pattern.
   equatable: ^1.2.5  # An abstract class that helps to implement equality without needing to explicitly override == and hashCode. used to compare equality in Objects
   flutter_platform_widgets: ^0.60.1 # Simplifies the use of both Material and Cupertino widgets with a single widget
+  date_format: ^1.0.8   #A simple API to format dates. Provides various constants to build Date format string
+
 
 
 

@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
@@ -7,8 +8,11 @@ class Mission {
   int flightNumber;
   int unixDate;
 
-
-  Mission({this.missionName, this.missionDateTime, this.flightNumber, this.unixDate});
+  Mission(
+      {this.missionName,
+      this.missionDateTime,
+      this.flightNumber,
+      this.unixDate});
 
   factory Mission.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
@@ -25,6 +29,9 @@ class Mission {
       rethrow;
     }
   }
+
+  String get formattedDate =>
+      formatDate(missionDateTime, [dd, '/', mm, '/', yy]);
 
   /// Data utility function creates a List<Launch> from a JSON list of
   /// launches..

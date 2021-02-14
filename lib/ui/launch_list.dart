@@ -86,7 +86,7 @@ class _LaunchListState extends State<LaunchList> {
                               ShowLaunchCountdown(state.missionList[index])),
                           child: Row(children: [
                             Text('${state.missionList[index].missionName}'),
-                            Text('${state.missionList[index].missionDateTime}'),
+                            Text('${state.missionList[index].formattedDate}'),
                           ]),
                         ),
                       );

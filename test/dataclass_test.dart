@@ -26,6 +26,7 @@ void main() {
       expect(testLaunch.missionDateTime, DateTime.utc(2021, 2, 15, 04, 20));
       expect(testLaunch.flightNumber, 117);
       expect(testLaunch.unixDate, 1613362800);
+      expect(testLaunch.formattedDate, '15/02/21');
     });
 
     test('TEST Countdown time', () {
