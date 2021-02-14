@@ -23,10 +23,12 @@ class LaunchesBloc extends Bloc<LaunchesEvent, LaunchesState> {
     debugPrint('= ${event.toString()}');
 
     if (event is ShowLaunchList) {
-      // fetch the launch list from the api
       yield WaitingForDataState();
+      var launchesJson = await missionApi.getUpcomingLaunches();
+      var list = Mission.makeLaunchList(launchesJson);
+
       // display the list
-      yield DisplayLaunchesState();
+      yield DisplayLaunchesState(missionList : list);
     }
     if (event is ShowLaunchCountdown) {
       // Configure the timer for the launch

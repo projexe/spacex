@@ -64,8 +64,14 @@ class _LaunchListState extends State<LaunchList> {
               ),
               body: Stack(alignment: Alignment.bottomCenter, children: <Widget>[
                 if (state is DisplayLaunchesState)
-                // Listview
-                  Container(),
+                  ListView.builder(
+                      itemCount: state.missionList.length,
+                      itemBuilder: (BuildContext content, int index) {
+                        return Row(children: [
+                          Text('${state.missionList[index].missionName}'),
+                          Text('${state.missionList[index].missionDateTime}'),
+                        ]);
+                      })
               ]),
             );
           }),

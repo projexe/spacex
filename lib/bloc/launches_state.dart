@@ -16,6 +16,7 @@ class WaitingForDataState extends LaunchesState {
 
 class DisplayLaunchesState extends LaunchesState {
   List<Mission> missionList;
+  DisplayLaunchesState({this.missionList});
   @override
   List<Object> get props => [missionList];
 }
