@@ -60,7 +60,7 @@ class _LaunchListState extends State<LaunchList> {
             return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  'mission',
+                  'Upcoming Launches',
                 ),
               ),
               body: Stack(alignment: Alignment.bottomCenter, children: <Widget>[
@@ -68,13 +68,21 @@ class _LaunchListState extends State<LaunchList> {
                   Center(child: PlatformCircularProgressIndicator()),
                 if (state is DisplayLaunchesState)
                   ListView.builder(
-                      itemCount: state.missionList.length,
-                      itemBuilder: (BuildContext content, int index) {
-                        return Row(children: [
-                          Text('${state.missionList[index].missionName}'),
-                          Text('${state.missionList[index].missionDateTime}'),
-                        ]);
-                      })
+                    itemCount: state.missionList.length,
+                    itemBuilder: (BuildContext content, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: InkWell(
+                          onTap: () => bloc.add(ShowLaunchCountdown(
+                              state.missionList[index].flightNumber)),
+                          child: Row(children: [
+                            Text('${state.missionList[index].missionName}'),
+                            Text('${state.missionList[index].missionDateTime}'),
+                          ]),
+                        ),
+                      );
+                    },
+                  )
               ]),
             );
           }),

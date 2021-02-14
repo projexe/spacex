@@ -16,8 +16,8 @@ class Mission {
       var _launch = Mission(
         missionDateTime: DateTime.tryParse(json['date_utc'] ?? ''),
         missionName: (json['name']?.toString()?.trim()),
-        flightNumber: (json['flight_number']),
-        unixDate: (json['date_unix']),
+        flightNumber: (json['flight_number'] ?? 0),
+        unixDate: (json['date_unix'] ?? 0),
       );
       return _launch;
     } catch (e) {
