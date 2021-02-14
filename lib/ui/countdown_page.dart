@@ -13,6 +13,7 @@ class CountdownPage extends StatefulWidget {
 }
 
 class _CountdownPageState extends State<CountdownPage> {
+  Timer timer;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LaunchesBloc, LaunchesState>(
@@ -43,9 +44,19 @@ class _CountdownPageState extends State<CountdownPage> {
     startCountdown();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    // cancel timer when disposing the widget
+    if (timer.isActive) {
+      timer.cancel();
+    }
+  }
 
   void startCountdown() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    // create and start a timer to set local state and display countdown clock
+    // every second
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         widget.time.tick();
       });
