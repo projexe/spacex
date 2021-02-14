@@ -3,12 +3,15 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:spacex/model/dataservice/data_service.dart';
 
 part 'launches_event.dart';
 part 'launches_state.dart';
 
 class LaunchesBloc extends Bloc<LaunchesEvent, LaunchesState> {
-  LaunchesBloc() : super(LaunchesInitial());
+  ApiInterface missionApi;
+
+  LaunchesBloc({this.missionApi}) : super(LaunchesInitial());
 
   @override
   Stream<LaunchesState> mapEventToState(
