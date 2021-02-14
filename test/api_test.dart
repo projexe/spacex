@@ -9,7 +9,7 @@ import 'package:spacex/model/dto/mission.dart';
 void main() {
   group('Api class tests', () {
     test('TEST Call to Next launches', () async {
-      var apiService = DataService(http.Client(),
+      var apiService = LaunchDataService(http.Client(),
           endPoint: 'https://api.spacexdata.com/v4/launches');
       // currently testing live api
       var launchResponse = await apiService.getNextLaunch();
@@ -20,7 +20,7 @@ void main() {
     });
 
     test('TEST Call to Upcoming launches', () async {
-      var apiService = DataService(http.Client(),
+      var apiService = LaunchDataService(http.Client(),
           endPoint: 'https://api.spacexdata.com/v4/launches');
       var launchResponse = await apiService.getUpcomingLaunches();
       var launches = Mission.makeLaunchList(launchResponse);

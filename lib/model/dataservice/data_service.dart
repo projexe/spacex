@@ -6,23 +6,23 @@ abstract class ApiInterface {
   Future<String> getUpcomingLaunches();
 }
 
-class DataService implements ApiInterface {
+class LaunchDataService implements ApiInterface {
   static const classTag = 'ApiService';
-  static DataService _singleton;
+  static LaunchDataService _singleton;
   http.Client httpClient;
   String apiEndpoint;
   bool isInitialised = false;
 
-  factory DataService(http.Client httpClient, {@required String endPoint}) {
+  factory LaunchDataService(http.Client httpClient, {@required String endPoint}) {
     assert(endPoint != null);
-    _singleton ??= DataService._internal(
+    _singleton ??= LaunchDataService._internal(
       httpClient,
       endPoint,
     );
     return _singleton;
   }
 
-  DataService._internal(
+  LaunchDataService._internal(
     http.Client _httpClient,
     String _endPoint,
   ) {
