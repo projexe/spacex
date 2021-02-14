@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:spacex/model/dataservice/data_service.dart';
+import 'package:spacex/model/dto/mission.dart';
 
 part 'launches_event.dart';
 part 'launches_state.dart';
