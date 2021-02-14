@@ -102,18 +102,26 @@ class _LaunchListState extends State<LaunchList> {
   }
 
   Widget _launchItem(Mission mission) => InkWell(
-    onTap: () => bloc.add(ShowLaunchCountdown(mission)),
-    child:
-        Padding(
+        onTap: () => bloc.add(ShowLaunchCountdown(mission)),
+        child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Text('${mission.missionName}',
-            style: TextStyle(color: Colors.white, fontSize: 18)),
-      Text('${mission.formattedDate}',
-            style: TextStyle(color: Colors.white, fontSize: 18)),
-    ]),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+
+            Row(
+              children: [if (mission.isFavourite) Padding(
+                padding: const EdgeInsets.only(right : 4.0),
+                child: Icon(Icons.favorite, color: Colors.white,),
+              ),
+                Text('${mission.missionName}',
+                    style: TextStyle(color: Colors.white, fontSize: 18)),
+              ],
+            ),
+            Text('${mission.formattedDate}',
+                style: TextStyle(color: Colors.white, fontSize: 18)),
+          ]),
         ),
-  );
+      );
 
   Widget _headingItem() => Padding(
         padding: const EdgeInsets.all(16.0),
