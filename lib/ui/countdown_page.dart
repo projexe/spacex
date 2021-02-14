@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex/bloc/launches_bloc.dart';
@@ -19,17 +21,34 @@ class _CountdownPageState extends State<CountdownPage> {
         appBar: AppBar(
           title: Text('Countdown'),
         ),
-        body: Column(children: [
-          Text('Days'),
-          Text('${widget.time.days}'),
-          Text('Hours'),
-          Text('${widget.time.hours}'),
-          Text('Minutes'),
-          Text('${widget.time.mins}'),
-          Text('Seconds'),
-          Text('${widget.time.seconds}'),
-        ],),
+        body: Column(
+          children: [
+            Text('Days'),
+            Text('${widget.time.days}'),
+            Text('Hours'),
+            Text('${widget.time.hours}'),
+            Text('Minutes'),
+            Text('${widget.time.mins}'),
+            Text('Seconds'),
+            Text('${widget.time.seconds}'),
+          ],
+        ),
       ),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    startCountdown();
+  }
+
+
+  void startCountdown() {
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        widget.time.tick();
+      });
+    });
   }
 }

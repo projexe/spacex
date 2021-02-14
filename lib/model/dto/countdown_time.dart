@@ -1,4 +1,5 @@
 class CountdownTime {
+  int unixDate;
   int days;
   int hours;
   int mins;
@@ -10,8 +11,18 @@ class CountdownTime {
   CountdownTime(this.days, this.hours, this.mins, this.seconds);
 
   CountdownTime.fromUnixDate(int unixDate, {int now}) {
+    this.unixDate = unixDate;
     var _now = now ?? DateTime.now().millisecondsSinceEpoch ~/ 1000;
-    var _secondsTilLaunch = unixDate - _now;
+    _setTime(_now);
+  }
+
+  CountdownTime tick() {
+    _setTime(DateTime.now().millisecondsSinceEpoch ~/ 1000);
+    return this;
+  }
+
+  void _setTime(int now) {
+    var _secondsTilLaunch = unixDate - now;
     // calculate days as seconds til launch mod seconds in day
     days = _secondsTilLaunch ~/ secondsInDay;
     var _rem = _secondsTilLaunch % secondsInDay;
