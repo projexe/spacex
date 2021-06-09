@@ -1,6 +1,6 @@
 # spacex
 
-SpaceX Gohenry Assessment by Simon Hutton
+SpaceX by Simon Hutton
 
 ## Getting Started
 
